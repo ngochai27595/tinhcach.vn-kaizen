@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Not, Like } from 'typeorm';
+import { InjectRepository, InjectDataSource } from '@nestjs/typeorm';
+import { Repository, Not, Like, DataSource } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { Pdfs as PdfEntity } from './pdf.entity';
 
@@ -10,6 +10,7 @@ const xpath = require('xpath-html');
 @Injectable()
 export class PdfsService {
   constructor(
+    @InjectDataSource() private readonly dataSource: DataSource,
     @InjectRepository(PdfEntity)
     private pdfsRepository: Repository<PdfEntity>,
     private readonly httpService: HttpService,
@@ -17,6 +18,10 @@ export class PdfsService {
 
   async update(pdf: PdfEntity) {
     return await this.pdfsRepository.save(pdf);
+  }
+
+  async getV2(): Promise<PdfEntity[]> {
+    return [];
   }
 
   async get(
@@ -39,12 +44,77 @@ export class PdfsService {
     return await this.pdfsRepository.findOneBy({ id: id });
   }
 
+  async getOneByCondition(condition: any): Promise<PdfEntity> {
+    return await this.pdfsRepository.findOneBy(condition);
+  }
+
   async add(pdf: PdfEntity) {
     return await this.pdfsRepository.insert(pdf);
   }
 
+  async countV2(condition: any) {
+    return await this.pdfsRepository.countBy(condition);
+  }
+
   async count(condition: any) {
     return await this.pdfsRepository.count(condition);
+  }
+
+  async getReportbyDate(start: any, end: any) {
+    const rs = await this.dataSource.query(
+      `SELECT COUNT(*) total FROM pdfs WHERE source = "tailieu" AND drive != ""
+      AND created_at BETWEEN UNIX_TIMESTAMP(STR_TO_DATE('${start}', '%Y-%c-%d')) - 3600 * 7 
+      AND UNIX_TIMESTAMP(STR_TO_DATE('${end}', '%Y-%c-%d')) - 3600 * 7;`,
+    );
+    return rs[0].total;
+  }
+
+  async countbyDate() {
+    return await this.dataSource.query(
+      `SELECT date, COUNT(*) total
+      FROM (SELECT DATE_FORMAT(FROM_UNIXTIME(created_at  + 3600 * 7), '%Y-%c-%d') date FROM pdfs WHERE source = "tailieu" AND drive != "") temp
+      GROUP BY date ORDER BY date DESC;`,
+    );
+  }
+
+  async getReport(idSource: any) {
+    const totalPdf = await this.dataSource.query(
+      `SELECT COUNT(*) total FROM pdfs LIMIT 1;`,
+    );
+    const totalPdfToanmath = await this.dataSource.query(
+      `SELECT COUNT(*) total FROM pdfs WHERE source = "toanmath" LIMIT 1;`,
+    );
+    const totalPdfTthi247 = await this.dataSource.query(
+      `SELECT COUNT(*) total FROM pdfs WHERE source = "thi247" LIMIT 1;`,
+    );
+    const totalPdfDtv = await this.dataSource.query(
+      `SELECT COUNT(*) total FROM pdfs WHERE source = "dtv" LIMIT 1;`,
+    );
+    const totalPdfTailieu = await this.dataSource.query(
+      `SELECT COUNT(*) total FROM pdfs WHERE source = "tailieu" LIMIT 1;`,
+    );
+    const totalPdfTailieuDone = await this.dataSource.query(
+      `SELECT COUNT(*) total FROM pdfs WHERE source = "tailieu" AND drive != ""
+      AND LENGTH(drive) >=32 AND LENGTH(drive) <= 33 LIMIT 1;`,
+    );
+    const totalPdfTailieuDoing = await this.dataSource.query(
+      `SELECT COUNT(*) total FROM pdfs WHERE source = "tailieu" AND drive != ""
+      AND (LENGTH(drive) >33 OR LENGTH(drive) < 32) LIMIT 1;`,
+    );
+    const totalPdfTailieuNeedDone = await this.dataSource.query(
+      `SELECT COUNT(*) total FROM pdfs WHERE source = "tailieu" AND drive = ""
+      AND id_source > ${idSource} LIMIT 1;`,
+    );
+    return {
+      totalPdf: totalPdf[0].total,
+      totalPdfToanmath: totalPdfToanmath[0].total,
+      totalPdfTthi247: totalPdfTthi247[0].total,
+      totalPdfDtv: totalPdfDtv[0].total,
+      totalPdfTailieu: totalPdfTailieu[0].total,
+      totalPdfTailieuDone: totalPdfTailieuDone[0].total,
+      totalPdfTailieuDoing: totalPdfTailieuDoing[0].total,
+      totalPdfTailieuNeedDone: totalPdfTailieuNeedDone[0].total,
+    };
   }
 
   async updateThumb() {
@@ -383,13 +453,17 @@ export class PdfsService {
               created_at: Math.floor(Date.now() / 1000),
             };
             return pdf;
-          } catch (error) {}
+          } catch (error) {
+            console.log(3, error);
+          }
         });
         return rs;
       } catch (error) {
+        console.log(1, error);
         return [];
       }
     } catch (error) {
+      console.log(2, error);
       return [];
     }
   }

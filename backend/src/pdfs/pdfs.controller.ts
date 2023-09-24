@@ -1,23 +1,26 @@
-import { Controller, Post, Body, Put, Param, Get, Query } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Like } from 'typeorm';
+import { Controller, Get, Query, Param, Post, Body, Put } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { v4 as uuidv4 } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Like, Not } from 'typeorm';
 import { Pdfs as PdfEntity } from './pdf.entity';
 import { PdfsService } from './pdfs.service';
+import { GooglApisService } from '../googleApis/googleApis.service';
+import { drive } from 'googleapis/build/src/apis/drive';
 const fs = require('fs');
 
 @Controller('pdfs')
 export class PdfsController {
   constructor(
     @InjectRepository(PdfEntity)
-    private readonly service: PdfsService,
-    private httpService: HttpService,
+    private readonly httpService: HttpService,
+    private service: PdfsService,
+    private googleApisService: GooglApisService,
   ) {}
 
   @Get()
   get(@Query() q: any) {
-    let condition: any = {};
+    let condition: any = { title: Not('') };
     const page = q?.page || 1;
     if (q?.idCategory !== undefined) {
       condition = { ...condition, id_category: q?.idCategory };
@@ -46,6 +49,9 @@ export class PdfsController {
     if (q.source == 'tailieu') {
       select = ['id', 'title', 'file_url', 'file_type', 'page'];
       order = { id_source: 'DESC' };
+      if (q?.orderPage !== undefined) {
+        order = { page: 'DESC' };
+      }
     }
     if (q.source == 'dtv') {
       select = ['id', 'title', 'file_url', 'file_type', 'page'];
@@ -91,15 +97,68 @@ export class PdfsController {
     }
   }
 
+  @Get('curl-drive-tailieu')
+  async curlGoogleDriveTailieu() {
+    try {
+      const pdf: any = await this.service.getById('2');
+      const drives: any = await this.googleApisService.curlFileInfolder(
+        {
+          tokenPath: 'crawlToken',
+          clientPath: 'crawlClient',
+        },
+        {
+          c: pdf.drive,
+          p: pdf.title,
+        },
+      );
+      const rs = await Promise.all(
+        drives.map(async (d: any) => {
+          const status: any = await this.googleApisService.curlChangeParent(
+            {
+              tokenPath: 'crawlToken',
+              clientPath: 'crawlClient',
+            },
+            {
+              c: pdf.drive,
+              p: pdf.title,
+              id: d.id,
+            },
+          );
+          const pdfExist: any = await this.service.getOneByCondition({
+            drive: d.name,
+          });
+          if (pdfExist) {
+            await this.service.update({ ...pdfExist, status: 1, drive: d.id });
+            await this.googleApisService.curlChangeName(
+              {
+                tokenPath: 'crawlToken',
+                clientPath: 'crawlClient',
+              },
+              {
+                c: pdf.drive,
+                p: pdf.title,
+                id: d.id,
+                name: pdfExist.id,
+              },
+            );
+          }
+          return { ...d, ...status };
+        }),
+      );
+      return rs;
+    } catch (error) {
+      return -1;
+    }
+  }
+
   @Get('curl-toan-math')
   async curlToanMath(@Query() q: any) {
     const data = await this.service.curlToanMath(q.y, q.m, q.page, q.domain);
-
     const rs = await Promise.all(
       data.map(async (d: any) => {
         const fileInfo = await this.service.curlToanMathFile(d.url);
         if (fileInfo.status) {
-          const totalPdf = await this.service.count({ title: d.title });
+          const totalPdf = await this.service.countV2({ title: d.title });
           if (totalPdf === 0) {
             const rs = await this.service.add({
               ...d,
@@ -272,7 +331,11 @@ export class PdfsController {
   async update(@Param() params: any, @Body() pdf: PdfEntity) {
     const pdfData: PdfEntity = await this.service.getById(params.id);
     if (pdfData) {
-      const data = await this.service.update({ ...pdfData, ...pdf });
+      const data = await this.service.update({
+        ...pdfData,
+        ...pdf,
+        created_at: '' + Math.floor(Date.now() / 1000),
+      });
       return { status: true, msg: 'Thành công!', data };
     } else {
       return { status: false, msg: 'Không tồn tài!', data: { id: params.id } };
