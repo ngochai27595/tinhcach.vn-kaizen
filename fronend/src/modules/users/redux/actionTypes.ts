@@ -1,0 +1,7 @@
+export const ACTION_TYPES = {
+  GET_USERS: Symbol("GET_USERS"),
+  SET_USERS: Symbol("SET_USERS"),
+  SET_USER: Symbol("SET_USER"),
+  ADD_PERMISION: Symbol("ADD_PERMISION"),
+  DELETE_PERMISION: Symbol("DELETE_PERMISION"),
+};

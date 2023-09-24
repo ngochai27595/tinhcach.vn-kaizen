@@ -1,0 +1,59 @@
+@import "./variable";
+.not-found-container {
+  width: 100%;
+  margin-top: 16px;
+  @include flex-center-center;
+  flex-direction: column;
+  @media (max-width: $tabletMaxWidth) {
+    margin-top: 50px;
+  }
+  @media (max-width: $mobileWidth) {
+    margin-top: 24px;
+  }
+  img {
+    width: 388.7px;
+    height: 300px;
+    @media (max-width: $mobileWidth) {
+      width: 194.3px;
+      height: 150px;
+    }
+  }
+  .not-found-message {
+    height: 54px;
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: $defaultTextColor;
+    @media (max-width: $mobileWidth) {
+      height: 48px;
+      margin-top: 32px;
+    }
+    :nth-child(1) {
+      @include font-24-bold;
+      @media (max-width: $mobileWidth) {
+        @include font-20-bold;
+      }
+    }
+    :nth-last-child(1) {
+      margin-top: 6px;
+      @include font-16-medium;
+      @media (max-width: $mobileWidth) {
+        @include font-14-medium;
+      }
+    }
+  }
+  button {
+    margin-top: 34px;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 2px 0px;
+    @include font-16-medium;
+    color: $dodgerBlue;
+    @media (max-width: $mobileWidth) {
+      margin-top: 26px;
+    }
+  }
+}

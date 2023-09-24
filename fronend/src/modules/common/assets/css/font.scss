@@ -1,0 +1,41 @@
+@font-face {
+  font-family: $font;
+  src: url("../fonts/OpenSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: $font-medium;
+  src: url("../fonts/OpenSans-SemiBold.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: $font-semibold;
+  src: url("../fonts/OpenSans-SemiBold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: $font-bold;
+  src: url("../fonts/OpenSans-Bold.ttf") format("truetype");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: $font-SFCompact;
+  src: url("https://r73troypb4obj.vcdn.cloud/web/fonts/SF-Compact-Rounded-Regular.ttf") format("truetype");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: $font-SFCompact-medium;
+  src: url("https://r73troypb4obj.vcdn.cloud/web/fonts/SF-Compact-Rounded-Medium.ttf") format("truetype");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: $font-SFCompact-semibold;
+  src: url("https://r73troypb4obj.vcdn.cloud/web/fonts/SF-Compact-Rounded-Semibold.ttf") format("truetype");
+  font-weight: 900;
+}

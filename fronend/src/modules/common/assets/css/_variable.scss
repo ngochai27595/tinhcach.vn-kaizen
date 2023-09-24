@@ -1,0 +1,220 @@
+$color: #ff8c05;
+$background-modal: #f9fafc;
+$online-color: #2acb42;
+$normal-text-color: #333333;
+$border-normal-color: #dfdfdf;
+
+$font: "Regular Opan sans";
+$font-thin: "Thin Opan sans";
+$font-light: "Light Opan sans";
+$font-medium: "Medium Opan sans";
+$font-bold: "Bold Opan sans";
+$font-semibold: "Semibold Opan sans";
+
+$font-SFCompact: "SF Compact Rounded Regular";
+$font-SFCompact-medium: "SF Compact Rounded Medium";
+$font-SFCompact-semibold: "SF Compact Rounded Semibold";
+
+$defaultTextColor: #333;
+$linen: #fff1e1;
+$linen100: #fff4e8;
+$silver: #bababa;
+$grayTextColor: #9d9d9d;
+$dodgerBlue: #1877f2;
+$whiteSmoke: #f6f6f6;
+$bridalHeath: #f8ede1;
+$darkOrange: #ff8c05;
+$whisper: #e7e7e7;
+$dimGray: #6d6d6d;
+$white: #fff;
+$redOrange: #ff3b30;
+$black: #000;
+$gray90: #e5e5e5;
+$limeGreen: #2acb42;
+$moccasin: #ffe0b5;
+$pattensBlue: #caecf8;
+$gainsBoro: #dfdfdf;
+$strongOrange: #f54c41;
+$weakGray: #fafafa;
+$blandGray: #ccc;
+$gray: #a8a1a1;
+$nero: #1d1d1d;
+$gray1: #bfbfbf;
+$blue1: #075ccb;
+$gray3: #9e9a9a;
+$honeyDew: #eaffed;
+$palePink: #ffe0e3;
+$blurBlack: #00000066;
+$levelColor1: #64dcc3;
+$levelColor2: #45cbfa;
+$levelColor3: #c382ff;
+$levelColor4: #2b70c9;
+$levelColor5: #f07882;
+$colorActive: #ff8805;
+$colorHover: #faa541;
+$tangerineYellow: #ffcb05;
+$floralWhite: #fdf7ef;
+$lightSlateBlue: #7a73ff;
+$blurGray: #d6d6d6;
+$oasis: #fdf2c8;
+$gray700: #707070;
+$gray200: #f2f2f2;
+$colorActive2: #ea9253;
+$colorDisable: rgba(187, 187, 187, 0.6);
+$colorEnable: #9493a6;
+
+$desktopMediumMinWidth: 1200px;
+$tabletMinWidth: 768px;
+$tabletMaxWidth: 1199px;
+$mobileWidth: 767px;
+
+@mixin font-30-bold {
+    font: 30px/34px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-30-semibold {
+    font: 30px/34px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-30-regular {
+    font: 30px/34px "Regular SF Compact Rounded", sans-serif !important;
+}
+
+@mixin font-26-bold {
+    font: 26px/30px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-26-semibold {
+    font: 26px/30px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-26-regular {
+    font: 26px/30px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-26-medium {
+    font: 26px/30px "Medium SF Compact Rounded", sans-serif !important;
+}
+@mixin font-24-bold {
+    font: 24px/28px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-24-semibold {
+    font: 24px/28px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-24-regular {
+    font: 24px/28px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-24-medium {
+    font: 24px/28px "Medium SF Compact Rounded", sans-serif !important;
+}
+@mixin font-20-bold {
+    font: 20px/24px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-20-semibold {
+    font: 20px/24px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-20-regular {
+    font: 20px/24px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-20-medium {
+    font: 20px/24px "Medium SF Compact Rounded", sans-serif !important;
+}
+@mixin font-18-bold {
+    font: 18px/22px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-18-semibold {
+    font: 18px/22px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-18-regular {
+    font: 18px/22px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-18-medium {
+    font: 18px/22px "Medium SF Compact Rounded", sans-serif !important;
+}
+@mixin font-16-bold {
+    font: 16px/20px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-16-semibold {
+    font: 16px/20px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-16-regular {
+    font: 16px/20px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-16-medium {
+    font: 16px/20px "Medium SF Compact Rounded", sans-serif !important;
+}
+@mixin font-14-bold {
+    font: 14px/18px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-14-semibold {
+    font: 14px/18px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-14-regular {
+    font: 14px/18px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-14-medium {
+    font: 14px/18px "Medium SF Compact Rounded", sans-serif !important;
+}
+@mixin font-12-bold {
+    font: 12px/16px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-12-semibold {
+    font: 12px/16px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-12-regular {
+    font: 12px/16px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-12-medium {
+    font: 12px/16px "Medium SF Compact Rounded", sans-serif !important;
+}
+
+@mixin font-28-bold {
+    font: 28px/32px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-28-semibold {
+    font: 28px/32px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-28-regular {
+    font: 28px/32px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-28-medium {
+    font: 28px/32px "Medium SF Compact Rounded", sans-serif !important;
+}
+
+@mixin font-36-bold {
+    font: 36px/40px "Bold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-36-semibold {
+    font: 36px/40px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-36-regular {
+    font: 36px/40px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-36-medium {
+    font: 36px/40px "Medium SF Compact Rounded", sans-serif !important;
+}
+
+@mixin font-10-semibold {
+    font: 10px/14px "Semibold SF Compact Rounded", sans-serif !important;
+}
+@mixin font-10-regular {
+    font: 10px/14px "Regular SF Compact Rounded", sans-serif !important;
+}
+@mixin font-10-medium {
+    font: 10px/10px "Medium SF Compact Rounded", sans-serif !important;
+}
+
+@mixin flex-center-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@mixin flex-justify-center {
+    display: flex;
+    justify-content: center;
+}
+@mixin flex-align-center {
+    display: flex;
+    align-items: center;
+}
+@mixin text-three-dot {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}

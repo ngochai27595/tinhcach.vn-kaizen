@@ -1,0 +1,244 @@
+@import "./variable";
+@import "./font.scss";
+@import "./toastr.scss";
+
+html,
+body {
+  min-width: unset !important;
+  height: 100%;
+}
+
+#root {
+  margin: 0 !important;
+  padding: 0px 0px !important;
+  font-family: $font;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+}
+.color-theme {
+  color: $color;
+}
+.logo-image {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  margin-left: 8px;
+  width: 100px;
+}
+
+.btn-custom {
+  font-family: $font-semibold;
+  @apply inline-block items-center px-4 py-2 border border-transparent shadow-sm rounded-md text-white;
+  &:focus {
+    @apply outline-none;
+  }
+  min-width: 80px;
+}
+.shadow-theme {
+  background-color: $color;
+  &:hover {
+    background: darken($color, 5%);
+    color: white;
+  }
+  &:focus,
+  &:active {
+    color: white;
+    box-shadow: none;
+  }
+}
+
+.chat-show-button {
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+  position: absolute;
+  right: 0px;
+  bottom: 76px;
+  box-shadow: 0px 1px 0px $border-normal-color;
+  border: 1px solid $border-normal-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pages {
+  height: calc(100% - 80px);
+  overflow-y: auto;
+  &.wrapper-header {
+    height: calc(100% - 80px);
+    overflow-y: hidden;
+  }
+}
+
+@media (max-width: 768.1px) {
+  .pages {
+    overflow-y: auto;
+  }
+}
+.heading--1 {
+  font-size: 40px;
+}
+.heading--3 {
+  font: 16px/20px $font-semibold;
+}
+.text-red {
+  color: red;
+}
+.text-grey {
+  color: #9d9d9d;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    zoom: 90%;
+    //  transform: scale(0.9);
+    max-width: 1440px;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgb(203, 203, 203);
+}
+.wrap-custom-button {
+  height: 44px;
+}
+.custom-button {
+  @apply inline-block;
+  background: $color;
+  color: white;
+  border: 1px solid transparent;
+  padding: 7px 8px;
+  border-radius: 8px;
+  font-family: $font-semibold;
+  font-size: 16px;
+  box-shadow: 0px 4px 0px darken($color, 10%);
+  min-width: 80px;
+  &:focus {
+    outline: none;
+    margin-top: 4px;
+    box-shadow: none;
+  }
+}
+.custom-container {
+  padding: 16px 2rem;
+}
+.modal-content {
+  min-height: 200px;
+}
+.popup-content {
+  border-radius: 8px;
+}
+
+.font-bold {
+  font-family: $font-bold;
+}
+.popup-content .modal-content {
+  border: none;
+  max-height: 100%;
+  overflow-y: auto;
+  box-shadow: none;
+}
+.font-semibold {
+  font-family: $font-semibold;
+}
+.max-2-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+.input-custom {
+  @apply relative border pl-2 py-1 outline-none w-full;
+  border-radius: 4px;
+  color: black;
+  border-color: #e2e8f0;
+}
+.form-group {
+  @apply flex items-center mt-4;
+  margin-bottom: 0 !important;
+  label {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+  .form-label {
+    width: 120px;
+    padding-right: 5px;
+    color: #9d9d9d;
+  }
+  .form-input {
+    width: calc(100% - 110px);
+  }
+}
+.error-message {
+  font-size: 12px;
+  color: red;
+  margin-top: 5px;
+}
+.icon-action {
+  @apply cursor-pointer;
+  color: #6b7280;
+  &:hover {
+    color: $color;
+  }
+  &.color-theme {
+    color: $color;
+  }
+}
+
+.th-table {
+  @apply px-4 py-2 text-left uppercase tracking-wider text-gray-500;
+  background-color: #f9fafb;
+  font-weight: unset;
+  font-size: 14px;
+}
+.td-table {
+  @apply px-4 py-2;
+  font-size: 14px;
+}
+.w-28 {
+  width: 7rem;
+}
+.input-search input[type="text"]:focus,
+.input-search input,
+.input-search input[type="text"],
+.input-search input[type="text"]:active,
+.input-search input:focus,
+.form-input input[type="text"],
+.form-input input[type="text"]:focus {
+  outline: none !important;
+  outline-offset: 0 !important;
+  transition: unset !important;
+}
+a:focus {
+  text-decoration: unset;
+}
+.wrap-icon-action {
+  height: 36px;
+  width: 36px;
+  border: 1px solid #ffa338;
+  color: #ffa338;
+  border-radius: 50%;
+  line-height: 36px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffa338;
+    color: #fff;
+  }
+}

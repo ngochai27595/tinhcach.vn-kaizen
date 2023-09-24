@@ -1,0 +1,32 @@
+#reviews {
+  padding: 10px;
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      word-break: break-word;
+    }
+    p.threedot {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    .label {
+      margin-left: 5px;
+      background: #6c5f9c;
+      color: #fff;
+      padding: 2px;
+      word-break: break-word;
+    }
+  }
+}
